@@ -2,12 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_deer/demo/demo_page.dart';
-import 'package:flutter_deer/home/splash_page.dart';
 import 'package:flutter_deer/net/dio_utils.dart';
 import 'package:flutter_deer/net/intercept.dart';
 import 'package:flutter_deer/res/constant.dart';
-import 'package:flutter_deer/routers/not_found_page.dart';
-import 'package:flutter_deer/routers/routers.dart';
+import 'package:flutter_deer/routers/app_router.dart';
 import 'package:flutter_deer/setting/provider/locale_provider.dart';
 import 'package:flutter_deer/setting/provider/theme_provider.dart';
 import 'package:flutter_deer/util/device_utils.dart';
@@ -77,13 +75,12 @@ class MyApp extends StatelessWidget {
   MyApp({super.key, this.home, this.theme}) {
     Log.init();
     initDio();
-    Routes.initRoutes();
     initQuickActions();
   }
 
   final Widget? home;
   final ThemeData? theme;
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  static GlobalKey<NavigatorState> navigatorKey = AppRouter.navigatorKey;
 
   void initDio() {
     final List<Interceptor> interceptors = <Interceptor>[];
@@ -157,7 +154,7 @@ class MyApp extends StatelessWidget {
   }
 
   Widget _buildMaterialApp(ThemeProvider provider, LocaleProvider localeProvider) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Deer',
       // showPerformanceOverlay: true, //显示性能标签
       // debugShowCheckedModeBanner: false, // 去除右上角debug的标签
@@ -168,12 +165,10 @@ class MyApp extends StatelessWidget {
       theme: theme ?? provider.getTheme(),
       darkTheme: provider.getTheme(isDarkMode: true),
       themeMode: provider.getThemeMode(),
-      home: home ?? const SplashPage(),
-      onGenerateRoute: Routes.router.generator,
+      routerConfig: AppRouter.router,
       localizationsDelegates: DeerLocalizations.localizationsDelegates,
       supportedLocales: DeerLocalizations.supportedLocales,
       locale: localeProvider.locale,
-      navigatorKey: navigatorKey,
       builder: (BuildContext context, Widget? child) {
         /// 保证文字大小不受手机系统设置影响 https://www.kikt.top/posts/flutter/layout/dynamic-text/
         return MediaQuery(
@@ -182,12 +177,6 @@ class MyApp extends StatelessWidget {
         );
       },
 
-      /// 因为使用了fluro，这里设置主要针对Web
-      onUnknownRoute: (_) {
-        return MaterialPageRoute<void>(
-          builder: (BuildContext context) => const NotFoundPage(),
-        );
-      },
       restorationScopeId: 'app',
     );
   }

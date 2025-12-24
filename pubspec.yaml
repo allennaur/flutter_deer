@@ -8,8 +8,8 @@ homepage: https://weilu.blog.csdn.net/
 publish_to: 'none'
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.19.0"
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
@@ -34,14 +34,14 @@ dependencies:
   # Flutter 轮播图 https://github.com/mdddj/flutter_swiper_null_safety
   flutter_swiper_null_safety_flutter3: ^4.0.3   # flutter_swiper很久不维护，可以使用这个替代
   # 启动URL的插件（支持Web） https://github.com/flutter/packages/tree/main/packages/url_launcher
-  url_launcher: 6.3.0
+  url_launcher: 6.3.2
   # 图片选择插件 https://github.com/flutter/packages/tree/main/packages/image_picker
-  image_picker: 1.2.0
+  image_picker: 1.2.1
   # 侧滑删除 https://github.com/letsar/flutter_slidable
   flutter_slidable: ^4.0.0
   # WebView插件 https://github.com/flutter/packages/tree/main/packages/webview_flutter
   webview_flutter: 4.13.0
-  webview_flutter_wkwebview: 3.23.4
+  webview_flutter_wkwebview: 3.23.5
   # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
   keyboard_actions: ^4.2.1
   # 城市选择列表 https://github.com/flutterchina/azlistview
@@ -54,18 +54,18 @@ dependencies:
   sprintf: ^7.0.0
   # 状态管理 https://github.com/rrousselGit/provider
   provider: ^6.1.2
-  # 扫码 https://github.com/juliuscanute/qr_code_scanner
-  qr_code_scanner:
-    git:
-      url: 'https://github.com/NeverOvO/qr_code_scanner.git'
-      ref: '3fe7b88'
+  go_router: ^14.3.0
+  # qr_code_scanner:
+  #   git:
+  #     url: 'https://github.com/NeverOvO/qr_code_scanner.git'
+  #     ref: '3fe7b88'
   # App Shortcuts https://github.com/flutter/packages/tree/main/packages/quick_actions
   quick_actions: 1.1.0
   # 振动 https://github.com/benjamindean/flutter_vibration
-  vibration: 3.1.3
+  vibration: 3.1.5
   vibration_web: 1.6.8
   # 获取当前设备信息 https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus
-  device_info_plus: 11.5.0
+  device_info_plus: 12.3.0
   # 桌面应用调整窗口的大小和位置 https://github.com/leanflutter/window_manager
   window_manager: 0.5.1
   # 高德2D地图插件（支持Web） https://github.com/simplezhli/flutter_2d_amap
