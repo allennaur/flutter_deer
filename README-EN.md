@@ -4,11 +4,7 @@
 
 ## English | [中文](README.md)
 
-This project is an exercise in learning Flutter for personal growth and development.
-
-To achieve specific design outcomes and meet the demands of daily development, one may employ the methods of configuring, modifying, combining pre-existing components, and customizing.
-
-The design plans for this project can be found in the "design" directory. You may utilize these plans to practice with a specific goal in mind. Any implementation is solely based on personal comprehension and learning. Should there be any superior implementation strategies, I welcome the opportunity for discussion.
+A continuously maintained, practice-oriented Flutter project that targets real-world business scenarios. It focuses on essential capabilities and engineering best practices through configuration, encapsulation, and moderate customization. Design assets are located in the `design` directory for guided implementation.
 
 ## Preview
 
@@ -25,34 +21,17 @@ Some of the page effects are as follows:
 
 **If you find this project satisfactory, kindly show your support by giving it a Star or Fork. Rest assured, this project is being continuously maintained and any issues can be brought to our attention by submitting an Issue.**
 
-## Realizing the content.
+## Features
 
-* MVP pattern
-* State management using `provider` (version 6.x)
-* Network request encapsulation based on `dio` (version 5.x)
-* Integration testing and accessibility testing
-* Support for dark mode
-* Localization（Thanks to @ghedwards）
-* Implementation of complex scrolling effects using `Sliver` series components
-* Location selection using AMap (supports Web)
-* Encapsulation of common widgets handling
-* Pull-to-refresh and load-more functionality
-* Application update check
-* PopupWindow
-* QR code scanning functionality (using the qr_code_scanner plugin)
-* Menu switching animations (circular expansion, 3D flip)
-* Swipe-to-delete
-* City selection
-* Three-level linkage selection similar to JD's city selection
-* Various custom dialogs
-* Sticky header for lists
-* Password input keyboard
-* Verification code input box
-* Custom simple calendar
-* Line chart and [pie charts](https://dartpad.cn/d06f8f737d6eb2d87978eb2d14b87864)
-* Modularized route management
-* More demos (ripple animation, scratch card, lottie)
-* More detailed optimizations
+- Routing: migrated to Navigator 2.0 using `go_router`, with a compatibility layer for gradual adoption
+- Networking: `dio` encapsulation with unified error handling
+- State: `provider` for state management, theme and locale
+- UI/UX: dark mode, localization, complex scrolling (Sliver), WebView
+- Device: image picking, vibration, device info
+- Map: AMap 2D (Web supported)
+- Engineering: integration & accessibility tests, modularized route management
+- Animations/Charts: Lottie, line/pie charts, more demos (ripple, scratch card, etc.)
+- QR scanning: `qr_code_scanner` (enable on demand)
 
 You may download and experience it specifically by accessing the following links:
 
@@ -62,29 +41,47 @@ As for iOS, you will need to download and run the code on your own.
 
 For web experience, please visit: https://simplezhli.github.io/flutter_deer/
 
-## The project's operational environment.
+## Requirements
 
 [![flutter_deer driver](https://github.com/simplezhli/flutter_deer/actions/workflows/flutter-drive.yml/badge.svg?branch=master)](https://github.com/simplezhli/flutter_deer/actions/workflows/flutter-drive.yml)
 
-    1. Flutter version 3.38.1
+- Flutter 3.38.x (stable)
+- Dart 3.10.x
+- iOS minimum `iOS 14.0+`
+- Android `compileSdk/targetSdk 36`
 
-    2. Dart version 3.10.0
+Note: On Windows/macOS, the project mainly serves UI preview; verify native capabilities on device/simulator.
 
-## Precautions to be taken.
+## Getting Started
 
-- In debug mode, there may be some lagging, which is considered a normal occurrence. A satisfactory experience requires the creation of a release package. To create a release version for iOS, execute the command `flutter build ios`. For Android, execute the command `flutter build apk`.
+1. Install Flutter (stable channel), ensure `flutter --version` is 3.38.x
+2. Fetch dependencies: `flutter pub get`
+3. Run
+   - Android: `flutter run -d android`
+   - iOS: `flutter run -d ios` (for native libs, run `cd ios && pod install` first)
+   - Web: `flutter run -d chrome`
+4. Build
+   - Android: `flutter build apk`
+   - iOS: `flutter build ios`
 
-- If there are any issues with the project's execution, please refer to the [iOS issue summary](./docs/iOS问题汇总.md) and [Android issue summary](./docs/Android问题汇总.md) for possible solutions.
+Optional: to enable QR scanning, uncomment the related entries in `pubspec.yaml` and configure platform permissions.
 
-- Due to certain plugin limitations, this project is only available for preview on Windows and macOS. Those interested may run and experience it themselves.
-        
-- To view the functionality demonstration, execute the integration test command `flutter drive --target=test_driver/driver.dart`.
+## Routing Migration
 
-- Due to the abundance of pages, it may be difficult to match the design at first. However, I have added the relative path of the design in the code comments, which can be searched or located for the corresponding page. I hope this will be helpful to you.
+- Introduced `go_router` for Navigator 2.0
+- Existing `NavigatorUtils` calls remain functional via a compatibility layer
+- Modules including WebView, Login, Goods, Orders, Store, Account, Settings, and Statistics are integrated with the new routing configuration
 
-- This project uses the [FlutterJsonBeanFactory](https://github.com/zhangruiyu/FlutterJsonBeanFactory) plugin to generate Beans.
+## Build & Testing
 
-- Web performance may be slower due to large resource files such as js and deployment on Github.
+- For best performance, build release packages: `flutter build apk` / `flutter build ios`
+- Integration tests and demo: `flutter drive --target=test_driver/driver.dart`
+ 
+## Troubleshooting
+
+- iOS CocoaPods/FFI architecture mismatch: use ARM-native `ffi 1.15.5` and ensure Pod sources are accessible; consider using mirrors when needed
+- `qr_code_scanner` may fail to fetch sub-dependencies under certain network conditions; temporarily disable or configure mirrors before re-enabling
+- Refer to `docs` for iOS/Android issue summaries
 
 ## Summary of Experience
 
@@ -128,7 +125,7 @@ For web experience, please visit: https://simplezhli.github.io/flutter_deer/
 | [provider](https://github.com/rrousselGit/provider)                   | **State management**     |
 | [flutter_2d_amap](https://github.com/simplezhli/flutter_2d_amap)      | **2D map from Amap**   |
 | [cached_network_image](https://github.com/renefloor/flutter_cached_network_image)       | **Image loading**       |
-| [fluro](https://github.com/theyakka/fluro)                            | **Routing management**     |
+| [go_router](https://github.com/flutter/packages/tree/main/packages/go_router) | **Routing (Navigator 2.0)**     |
 | [flutter_oktoast](https://github.com/OpenFlutter/flutter_oktoast)     | **Toast notifications**        |
 | [common_utils](https://github.com/Sky24n/common_utils)                | **Common Dart utility library**     |
 | [flutter_slidable](https://github.com/letsar/flutter_slidable)        | **Swipe-to-delete**     |
@@ -151,13 +148,12 @@ For web experience, please visit: https://simplezhli.github.io/flutter_deer/
 
 For details, please refer to the [pubspec.yaml](https://github.com/simplezhli/flutter_deer/blob/master/pubspec.yaml) file.  
 
-## Plan:
+## Plan
 
-* [x] Web support.
-
-* [x] Migrate to null-safety.
-
-* [ ] Migrate to Navigator 2.0.
+- [x] Web support
+- [x] Null-safety migration
+- [x] Navigator 2.0 (go_router) migration & compatibility
+- [ ] Ongoing modular improvements and cross-platform validation
 
 ## Thanks For
 

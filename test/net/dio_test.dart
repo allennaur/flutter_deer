@@ -21,6 +21,7 @@ void main() {
         },
         onError: (code, msg) {
           debugPrint('$code, $msg');
+          fail('Request failed with code $code: $msg');
         }
       );
     });

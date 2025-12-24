@@ -4,11 +4,7 @@
 
 ## [English](README-EN.md) | 中文
 
-本项目为个人学习Flutter的练习项目。
-
-通过设置、修改、组合自带部件以及自定义来实现具体的设计效果，满足日常开发的需求。
-
-本项目设计图见design目录，你可以通过我提供的设计图有目标的去练习。所有的实现仅是个人的学习理解，如果有更好的实现方案欢迎交流。
+一个以真实业务场景为目标的 Flutter 学习与实践项目，持续维护中。通过配置、封装与适度自定义，聚焦常见业务能力与工程化最佳实践。设计图位于 `design` 目录，便于对照练习与实现。
 
 ## 预览
 
@@ -25,34 +21,17 @@
 
 **觉得还可以的话，来个Star、Fork支持一波！本项目持续维护中，有问题欢迎提Issue。**
 
-## 实现内容（已迁移到空安全）
+## 主要特性
 
-* mvp模式
-* 使用`provider` (6.x 版本)做状态管理
-* 基于`dio` （5.x 版本）的网络请求封装
-* 完整的集成测试、可访问性测试。
-* 支持深色模式
-* 本地化（感谢 @ghedwards）
-* 使用`Sliver` 系列组件实现复杂滚动效果
-* 使用高德地图定位选择地址（支持Web）
-* 通用Widget的处理封装
-* 下拉刷新 + 上拉加载更多
-* 应用检查更新
-* PopupWindow
-* 扫码功能（qr_code_scanner插件）
-* 菜单切换动画（圆形扩散、3D翻转）
-* 侧滑删除
-* 城市选择
-* 类似京东选择城市的三级联动
-* 各种自定义Dialog
-* 列表头部吸顶
-* 密码输入键盘
-* 验证码输入框
-* 自定义简易日历
-* 曲线图及[饼状图](https://dartpad.cn/d06f8f737d6eb2d87978eb2d14b87864)
-* 模块化路由管理
-* 更多Demo（水波纹动画、刮刮卡、lottie）
-* 更多的细节优化
+- 路由：已迁移至 Navigator 2.0（基于 `go_router`），保留兼容层便于渐进迁移
+- 网络：`dio` 封装与统一错误处理
+- 状态：`provider` 状态管理与主题/语言设定
+- UI/UX：深色模式、本地化、复杂滚动（Sliver）、WebView
+- 设备能力：图片选择、震动、设备信息
+- 地图定位：高德 2D 地图（支持 Web）
+- 工程化：集成测试与可访问性测试、模块化路由管理
+- 动画/图表：Lottie、曲线图/饼图、更多 Demo（涟漪、刮刮卡等）
+- 扫码能力：`qr_code_scanner`（按需启用）
 
 具体可以下载体验：
 
@@ -62,31 +41,41 @@ iOS需要自行下载代码运行。
 
 Web体验地址：https://simplezhli.github.io/flutter_deer/
 
-## 项目运行环境
+## 环境与平台
 
 [![flutter_deer driver](https://github.com/simplezhli/flutter_deer/actions/workflows/flutter-drive.yml/badge.svg?branch=master)](https://github.com/simplezhli/flutter_deer/actions/workflows/flutter-drive.yml)
 
-    1. Flutter version 3.38.1
+- Flutter 3.38.x（稳定版）
+- Dart 3.10.x
+- iOS 最低版本 `iOS 14.0+`
+- Android `compileSdk/targetSdk 36`
 
-    2. Dart version 3.10.0
+提示：本项目在 Windows、macOS 以 UI 预览为主，原生能力请在真机/模拟器验证。
 
-## 注意事项
+## 快速开始
 
-- `debug`模式下会有部分卡顿现象，这属于正常现象。良好的体验需要打`release` 包。
-    iOS可以执行命令`flutter build ios` 以创建`release`版本。
-    Android可以执行命令`flutter build apk` 以创建`release`版本。
+1. 安装 Flutter（稳定通道），确保 `flutter --version` 在 3.38.x
+2. 拉取依赖：`flutter pub get`
+3. 运行
+   - Android：`flutter run -d android`
+   - iOS：`flutter run -d ios`（若使用原生库，需先 `cd ios && pod install`）
+   - Web：`flutter run -d chrome`
+4. 构建发布
+   - Android：`flutter build apk`
+   - iOS：`flutter build ios`
 
-- 项目运行有问题可以在[iOS问题汇总](./docs/iOS问题汇总.md)、[Android问题汇总](./docs/Android问题汇总.md)中尝试寻找解决办法。
+可选：如需启用扫码，取消 `pubspec.yaml` 中相关注释并按平台完成权限配置。
 
-- 由于部分插件的原因，本项目在Windows、macOS仅做预览（主要为原生功能方面，UI问题不大）。有兴趣的可自行运行体验。
+## 构建与测试
 
-- 可以执行集成测试命令`flutter drive --target=test_driver/driver.dart` 查看功能演示。
+- 体验更流畅的效果请使用 `release` 包：`flutter build apk` / `flutter build ios`
+- 集成测试与演示：`flutter drive --target=test_driver/driver.dart`
+ 
+## 疑难排查
 
-- 因为页面有点多，一开始可能会导致页面无法与设计图对应上。我在代码注释中有添加设计图的相对路径，可以搜索或查找到对应页面，希望对你有帮助。
-
-- 本项目使用[FlutterJsonBeanFactory](https://github.com/zhangruiyu/FlutterJsonBeanFactory)插件来生成Bean。
-
-- Web受制于js等资源过大和部署在Github上，访问会慢一些。
+- iOS 端 CocoaPods/FFI 架构问题：建议使用 ARM 原生 `ffi 1.15.5` 并确保 Pod 源可用；必要时使用镜像源
+- `qr_code_scanner` 在国内网络环境下可能拉取子依赖失败：可先按需注释依赖或配置镜像源后再启用
+- 更多问题参见 `docs` 目录的 iOS/Android 问题汇总
 
 ## 心得总结（推荐阅读）
 
@@ -132,7 +121,7 @@ Web体验地址：https://simplezhli.github.io/flutter_deer/
 | [provider](https://github.com/rrousselGit/provider)                   | **状态管理**     |
 | [flutter_2d_amap](https://github.com/simplezhli/flutter_2d_amap)      | **高德2D地图**   |
 | [cached_network_image](https://github.com/renefloor/flutter_cached_network_image)       | **图片加载**       |
-| [fluro](https://github.com/theyakka/fluro)                            | **路由管理**     |
+| [go_router](https://github.com/flutter/packages/tree/main/packages/go_router) | **路由管理（Navigator 2.0）**     |
 | [flutter_oktoast](https://github.com/OpenFlutter/flutter_oktoast)     | **Toast**        |
 | [common_utils](https://github.com/Sky24n/common_utils)                | **Dart 常用工具类库**     |
 | [flutter_slidable](https://github.com/letsar/flutter_slidable)        | **侧滑删除**     |
@@ -155,27 +144,14 @@ Web体验地址：https://simplezhli.github.io/flutter_deer/
 
 详细内容可以参看[pubspec.yaml](https://github.com/simplezhli/flutter_deer/blob/master/pubspec.yaml)文件
 
-## 后续计划：
+## 计划
 
-* [x] 添加地图功能，具体实现插件见 [flutter_2d_amap](https://github.com/simplezhli/flutter_2d_amap)
-
-* [x] 下拉刷新 + 上拉加载更多
-
-* [x] 引入状态管理，预计使用 [provider](https://github.com/rrousselGit/provider)
-
-* [x] 页面添加设计图路径注释，方便寻找对应的设计图。
-
-* [x] 添加集成测试。
-
-* [x] 深色模式支持。
-
-* [x] 添加`Semantics`（语义）
-
-* [x] Web端支持。
-
-* [x] 迁移到空安全。（安装包减少135KB，10.3M -> 10.1M）
-
-* [ ] 迁移至Navigator 2.0。
+- [x] Web 支持
+- [x] 迁移至空安全
+- [x] 深色模式与可访问性
+- [x] 集成测试
+- [x] Navigator 2.0（go_router）迁移与兼容
+- [ ] 持续完善模块化与跨端验证
 
 ## 已知存在问题：
 
